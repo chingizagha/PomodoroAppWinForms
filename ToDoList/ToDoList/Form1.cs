@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace ToDoList
 {
@@ -19,6 +21,10 @@ namespace ToDoList
         TimeSpan secondsRemaining;
         bool isCompleted = false;
         DateTime dt;
+        string musicPathParent = Path.Combine(Directory.GetCurrentDirectory() + @"\Music");
+        System.Media.SoundPlayer? player;
+        string musicPath = Path.Combine(Directory.GetCurrentDirectory() + @"\Music\");
+
         public Form1()
         {
             InitializeComponent();
@@ -41,7 +47,10 @@ namespace ToDoList
             {
                 timer1.Stop();
                 isCompleted = false;
-                if(timeDataGridView.Rows[0].Cells[0].Value == DBNull.Value)
+                player = new System.Media.SoundPlayer(musicPath + $"{musicComboBox.SelectedItem.ToString()}" + ".wav");
+                if (musicSwitch.Checked)
+                    player.Play();
+                if (timeDataGridView.Rows[0].Cells[0].Value == DBNull.Value)
                 {
                     timeDataGridView.Rows.RemoveAt(0);
                 }
@@ -146,6 +155,58 @@ namespace ToDoList
             {
                 timeDataGridView.Rows.RemoveAt(e.RowIndex);
             }
+        }
+
+        private void materialButton1_Click(object sender, EventArgs e)
+        {
+            player = new System.Media.SoundPlayer(musicPath + $"{musicComboBox.SelectedItem.ToString()}" + ".wav");
+            player.Play();
+        }
+
+        private void themeSwitch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (themeSwitch.Checked)
+                ThemeManager.Theme = MaterialSkinManager.Themes.DARK;
+            else
+                ThemeManager.Theme = MaterialSkinManager.Themes.LIGHT;
+
+        }
+
+        private void textBoxAdd_Enter(object sender, EventArgs e)
+        {
+            if (textBoxAdd.Text == "60")
+            {
+                textBoxAdd.ForeColor = Color.IndianRed;
+                textBoxAdd.Text = "";
+            }
+        }
+
+        private void textBoxAdd_Leave(object sender, EventArgs e)
+        {
+            if (textBoxAdd.Text == "")
+            {
+                textBoxAdd.ForeColor = Color.IndianRed;
+                textBoxAdd.Text = "60";
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            foreach (string fileName in Directory.GetFiles(musicPathParent))
+            {
+                var name = Path.GetFileName(fileName);
+                name = name.Substring(0, name.Length - 4);
+                musicComboBox.Items.Add(name);
+            }
+
+            
+        }
+
+        private void listTextAdd_Click(object sender, EventArgs e)
+        {
+            string[] row = { listText.Text, "Yes", "No" };
+            var listViewItem = new ListViewItem(row);
+            listView.Items.Add(listViewItem);
         }
     }
 }

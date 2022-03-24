@@ -18,3 +18,4 @@ C:\Users\cingi\Desktop\ToDoList\ToDoList\ToDoList\obj\Debug\net5.0-windows\ToDoL
 C:\Users\cingi\Desktop\ToDoList\ToDoList\ToDoList\obj\Debug\net5.0-windows\ref\ToDoList.dll
 C:\Users\cingi\Desktop\ToDoList\ToDoList\ToDoList\obj\Debug\net5.0-windows\ToDoList.pdb
 C:\Users\cingi\Desktop\ToDoList\ToDoList\ToDoList\obj\Debug\net5.0-windows\ToDoList.genruntimeconfig.cache
+C:\Users\cingi\Desktop\ToDoList\ToDoList\ToDoList\obj\Debug\net5.0-windows\ToDoList.Properties.Resources.resources
